@@ -548,7 +548,9 @@ class SFTopicSources(SolgemaFullcalendarView):
 
         gcalSourcesAttr = getattr(self.calendar, 'gcalSources', '')
         if gcalSourcesAttr != None:
-            gcalSources = gcalSourcesAttr.split('\n')
+            # Changing the split to include \r. Not using this to split breaks the calendar when using 
+            # multiple google calendars, at least on a mac accessing a linux plone vm
+            gcalSources = gcalSourcesAttr.split('\r\n')
             for i in range(len(gcalSources)):
                 url = gcalSources[i]
                 if url:
